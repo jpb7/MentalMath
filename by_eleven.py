@@ -7,7 +7,6 @@
 from drill import Drill
 from multiply import Multiply
 
-#   TODO: create base class, make this inherit.
 
 #   For multiplying two- or three-digit numbers by 11.
 

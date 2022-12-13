@@ -9,6 +9,8 @@ from subtract import Subtract
 from multiply import Multiply
 
 
+#   Base class for drills, which run problem generators.
+
 class Drill():
     def __init__(self, problemGen, numProblems):
         """
