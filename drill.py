@@ -4,9 +4,7 @@
 #   Mental math app
 #   
 
-from add import Add
-from subtract import Subtract
-from multiply import Multiply
+from problem import Problem
 
 
 #   Base class for drills, which run problem generators.
@@ -16,7 +14,11 @@ class Drill():
         """
         Specify number of problems to generate.
         """
-        self.generator = problemGen     # TODO: verify gen type
+        if isinstance(problemGen, Problem):
+            self.generator = problemGen
+        else:
+            raise ValueError("Not a valid problem generator.")
+
         self.problems = numProblems
 
 
