@@ -36,20 +36,21 @@ class Multiply(Problem):
 
 #   Tests.
 
-print("Initialize:")
-p = Multiply(1, 10)
-p.dump()
-
-print("Change values:")
-p.shuffle()
-p.dump()
-
-print("Double digits:")
-p.setRange(10, 100)
-p.dump()
-
-print("Multiply by 11:")
-p.shuffle()
-p.setValueA(11)
-p.dump()
-
+# print("Initialize:")
+# p = Multiply(1, 10)
+# p.dump()
+# 
+# print("Change values:")
+# p.shuffle()
+# p.dump()
+# 
+# print("Double digits:")
+# p.setRange(10, 100)
+# p.dump()
+# 
+# print("Multiply by 11:")
+# p.shuffle()
+# p.setA(11)
+# p.dump()
+# 
+# 

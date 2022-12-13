@@ -37,20 +37,21 @@ class Subtract(Problem):
 
 #   Tests.
 
-print("Initialize:")
-p = Subtract(1, 10)
-p.dump()
-
-print("Change values:")
-p.shuffle()
-p.dump()
-
-print("Double digits:")
-p.setRange(10, 100)
-p.dump()
-
-print("Allow negatives:")
-p.absolute = False
-p.shuffle()
-p.dump()
-
+# print("Initialize:")
+# p = Subtract(1, 10)
+# p.dump()
+# 
+# print("Change values:")
+# p.shuffle()
+# p.dump()
+# 
+# print("Double digits:")
+# p.setRange(10, 100)
+# p.dump()
+# 
+# print("Allow negatives:")
+# p.absolute = False
+# p.shuffle()
+# p.dump()
+# 
+# 

@@ -55,25 +55,50 @@ class Problem():
         self.shuffle()
 
         return True
+
+
+    def shuffleA(self):
+        """
+        Generate new random integer for `a` only.
+        """
+        self.a = randrange(self.start, self.stop)
+
+        return True
+
+
+    def shuffleB(self):
+        """
+        Generate new random integer for `b` only.
+        """
+        self.b = randrange(self.start, self.stop)
     
-    def setValueA(self, value):
+
+    def setA(self, value):
+        """
+        Set `a` to an arbitrary value.
+        """
         self.a = value
 
-    def setValueB(self, value):
+
+    def setB(self, value):
+        """
+        Set `b` to an arbitrary value.
+        """
         self.b = value
 
 
 #   Tests.
 
-print("Initialize:")
-p = Problem(1, 10)
-p.dump()
-
-print("Change values:")
-p.shuffle()
-p.dump()
-
-print("Double digits:")
-p.setRange(10, 100)
-p.dump()
-
+# print("Initialize:")
+# p = Problem(1, 10)
+# p.dump()
+# 
+# print("Change values:")
+# p.shuffle()
+# p.dump()
+# 
+# print("Double digits:")
+# p.setRange(10, 100)
+# p.dump()
+# 
+# 

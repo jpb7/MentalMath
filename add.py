@@ -36,15 +36,16 @@ class Add(Problem):
 
 #   Tests.
 
-print("Initialize:")
-p = Add(1, 10)
-p.dump()
-
-print("Change values:")
-p.shuffle()
-p.dump()
-
-print("Double digits:")
-p.setRange(10, 100)
-p.dump()
-
+# print("Initialize:")
+# p = Add(1, 10)
+# p.dump()
+# 
+# print("Change values:")
+# p.shuffle()
+# p.dump()
+# 
+# print("Double digits:")
+# p.setRange(10, 100)
+# p.dump()
+# 
+# 
