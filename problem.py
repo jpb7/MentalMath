@@ -18,8 +18,6 @@ class Problem():
         self.setRange(start, stop)
 
 
-    #   TODO: dump as JSON object.
-
     def dump(self):
         """
         Print fields for debugging.
@@ -58,6 +56,8 @@ class Problem():
 
         return True
 
+
+#   Tests.
 
 print("Initialize:")
 p = Problem(1, 10)
