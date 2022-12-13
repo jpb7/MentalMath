@@ -55,6 +55,12 @@ class Problem():
         self.shuffle()
 
         return True
+    
+    def setValueA(self, value):
+        self.a = value
+
+    def setValueB(self, value):
+        self.b = value
 
 
 #   Tests.
