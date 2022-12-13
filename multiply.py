@@ -23,8 +23,6 @@ class Multiply(Problem):
         """
         super().dump()
         print(f"Prod: {self.solve()}")
-
-        return True
     
 
     def solve(self):

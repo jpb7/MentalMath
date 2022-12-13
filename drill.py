@@ -27,8 +27,6 @@ class Drill():
         for i in range(self.problems):
             self.generator.shuffle()
             self.generator.dump()
-
-        return True
         
 
 #   Test.

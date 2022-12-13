@@ -24,8 +24,6 @@ class Subtract(Problem):
         """
         super().dump()
         print(f"Diff: {self.solve()}")
-
-        return True
     
 
     def solve(self):

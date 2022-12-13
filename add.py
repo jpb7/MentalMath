@@ -24,8 +24,6 @@ class Add(Problem):
         super().dump()
         print(f"Sum: {self.solve()}")
 
-        return True
-
 
     def solve(self):
         """

@@ -25,8 +25,6 @@ class Problem():
         print("a:", self.a)
         print("b:", self.b)
 
-        return True
-
 
     def solve(self):
         """
@@ -41,8 +39,6 @@ class Problem():
         """
         self.a = randrange(self.start, self.stop)
         self.b = randrange(self.start, self.stop)
-
-        return True
     
 
     def setRange(self, start, stop):
@@ -54,16 +50,12 @@ class Problem():
         self.stop = stop
         self.shuffle()
 
-        return True
-
 
     def shuffleA(self):
         """
         Generate new random integer for `a` only.
         """
         self.a = randrange(self.start, self.stop)
-
-        return True
 
 
     def shuffleB(self):

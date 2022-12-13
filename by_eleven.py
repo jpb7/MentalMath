@@ -32,8 +32,6 @@ class MultByEleven(Drill):
             self.generator.shuffle()
             self.generator.setA(11)
             self.generator.dump()
-
-        return True
         
 
 #   Test.
