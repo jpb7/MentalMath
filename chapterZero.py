@@ -5,8 +5,32 @@
 #
 
 from random import randrange, choice
+from drill import Drill
 from multiply import Multiply
 from square import Square
+
+
+#   Run all drills for this chapter with n problems per drill.
+
+class ChapterZero(Drill):
+    def __init__(self, n):
+        """
+        Initialize to first drill for n repetitions.
+        """
+        super().__init__(MultiplyByEleven(10,100), n)
+    
+
+    def runAll(self):
+        """
+        Generate n problems per drill.
+        """
+        self.run()
+        self.reset(MultiplyByEleven(100, 999))
+        self.run()
+        self.reset(SquareTwoDigitEndingInFive())
+        self.run()
+        self.reset(MultiplyComplementaryOnesDigit())
+        self.run()
 
 
 #   For multiplying two-digit numbers by 11.
@@ -64,35 +88,40 @@ class MultiplyComplementaryOnesDigit(Multiply):
         self.a = randrange(10, 100)
         self.b = self.a + 10 - 2*(self.a % 10)
 
+
 #   Tests.
 
-p = MultiplyByEleven(10, 100)
+d = ChapterZero(3)
+d.runAll()
 
-print("\nMultiply two-digit numbers by 11:")
-for i in range(3):
-    p.shuffle()
-    p.dump()
-
-p = MultiplyByEleven(100, 999)
-
-print("\nMultiply three-digit numbers by 11:")
-for i in range(3):
-    p.shuffle()
-    p.dump()
-
-p = SquareTwoDigitEndingInFive()
-
-print("\nSquare two-digit numbers ending in 5:")
-for i in range(3):
-    p.shuffle()
-    p.dump()
-
-p = MultiplyComplementaryOnesDigit()
-
-print("\nMultiply two-digit numbers whose ones digits sum to 10:")
-for i in range(3):
-    p.shuffle()
-    p.dump()
-
-print()
-
+# p = MultiplyByEleven(10, 100)
+# 
+# print("\nMultiply two-digit numbers by 11:")
+# for i in range(3):
+#     p.shuffle()
+#     p.dump()
+# 
+# p = MultiplyByEleven(100, 999)
+# 
+# print("\nMultiply three-digit numbers by 11:")
+# for i in range(3):
+#     p.shuffle()
+#     p.dump()
+# 
+# p = SquareTwoDigitEndingInFive()
+# 
+# print("\nSquare two-digit numbers ending in 5:")
+# for i in range(3):
+#     p.shuffle()
+#     p.dump()
+# 
+# p = MultiplyComplementaryOnesDigit()
+# 
+# print("\nMultiply two-digit numbers whose ones digits sum to 10:")
+# for i in range(3):
+#     p.shuffle()
+#     p.dump()
+# 
+# print()
+# 
+# 

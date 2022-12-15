@@ -12,14 +12,20 @@ from problem import Problem
 class Drill():
     def __init__(self, problemGen, numProblems):
         """
-        Specify number of problems to generate.
+        Initialize problem generator and number of problems.
+        """
+        self.reset(problemGen)
+        self.problems = numProblems
+
+    
+    def reset(self, problemGen):
+        """
+        Set the problem generator to a given type.
         """
         if isinstance(problemGen, Problem):
             self.generator = problemGen
         else:
             raise ValueError("Not a valid problem generator.")
-
-        self.problems = numProblems
 
 
     def run(self):
