@@ -24,13 +24,26 @@ class ChapterZero(Drill):
         """
         Generate n problems per drill.
         """
+        print("\nMultiply two-digit numbers by 11:")
         self.run()
+
+        print("\nMultiply three-digit numbers by 11:")
         self.reset(MultiplyByEleven(100, 999))
         self.run()
+
+        print("\nSquare two-digit numbers ending in 5:")
         self.reset(SquareTwoDigitEndingInFive())
         self.run()
+
+        print("\nMultiply two-digit numbers where ones digits sum to 10:")
         self.reset(MultiplyComplementaryOnesDigit())
         self.run()
+
+        print("\nCalculate 15-percent tip:")
+        self.reset(CalculateTip(10, 100))
+        self.run()
+
+        print()
 
 
 #   For multiplying two-digit numbers by 11.
@@ -89,39 +102,34 @@ class MultiplyComplementaryOnesDigit(Multiply):
         self.b = self.a + 10 - 2*(self.a % 10)
 
 
+#   For finding a 15-percent tip given a check amount.
+
+class CalculateTip(Multiply):
+    def __init__(self, start, stop):
+        """
+        Initialize random check amount and 15%.
+        """
+        super().__init__(start, stop)
+        self.b = 0.15
+        self.shuffle()
+    
+
+    def shuffle(self):
+        """
+        Set random value for `a`.
+        """
+        self.a = randrange(self.start, self.stop)
+
+    
+    def solve(self):
+        """
+        Multiply `a` by 0.15 and round to two decimal places.
+        """
+        return round(self.a * self.b, 2)
+
+
 #   Tests.
 
 d = ChapterZero(3)
 d.runAll()
 
-# p = MultiplyByEleven(10, 100)
-# 
-# print("\nMultiply two-digit numbers by 11:")
-# for i in range(3):
-#     p.shuffle()
-#     p.dump()
-# 
-# p = MultiplyByEleven(100, 999)
-# 
-# print("\nMultiply three-digit numbers by 11:")
-# for i in range(3):
-#     p.shuffle()
-#     p.dump()
-# 
-# p = SquareTwoDigitEndingInFive()
-# 
-# print("\nSquare two-digit numbers ending in 5:")
-# for i in range(3):
-#     p.shuffle()
-#     p.dump()
-# 
-# p = MultiplyComplementaryOnesDigit()
-# 
-# print("\nMultiply two-digit numbers whose ones digits sum to 10:")
-# for i in range(3):
-#     p.shuffle()
-#     p.dump()
-# 
-# print()
-# 
-# 
