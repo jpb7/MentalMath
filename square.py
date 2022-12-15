@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/13/2022
+#   12/15/2022
 #   Mental math app
 #
 
@@ -33,39 +33,18 @@ class Square(Multiply):
         print(f"Square: {self.solve()}")
 
 
-#   For squaring two-digit numbers ending in 5.
-
-class SquareEndInFive(Square):
-    def __init__(self):
-        """
-        Initialize target values and instantiate base-class object.
-        """
-        self.numbers = (5, 15, 25, 35, 45, 55, 65, 75, 85, 95)
-        self.shuffle()
-
-    
-    def shuffle(self):
-        """
-        Randomly select target value from above.
-        """
-        self.a = self.b = choice(self.numbers)
-
-
 #   Tests.
 
-print("Initialize:")
-p = Square(10, 100)
-p.dump()
-
-print("Change values:")
-p.shuffle()
-p.dump()
-
-print("SquareEndInFive:")
-p = SquareEndInFive()
-p.dump()
-
-print("Again:")
-p.shuffle()
-p.dump()
-
+# print("Initialize:")
+# p = Square(10, 100)
+# p.dump()
+# 
+# print("Change values:")
+# p.shuffle()
+# p.dump()
+# 
+# print("Again:")
+# p.shuffle()
+# p.dump()
+# 
+# 
