@@ -4,7 +4,7 @@
 #   Mental math app
 #
 
-from random import randrange, choice
+from random import randrange
 from multiply import Multiply
 
 
