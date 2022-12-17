@@ -19,7 +19,7 @@ class Multiply(Problem):
 
     def dump(self):
         """
-        Print base fields and difference.
+        Print base fields and product.
         """
         super().dump()
         print(f"Prod: {self.solve()}")

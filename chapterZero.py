@@ -99,7 +99,7 @@ class MultiplyComplementaryOnesDigit(Multiply):
         Randomly select a two-digit value and then find a complement.
         """
         self.a = randrange(10, 100)
-        self.b = self.a + 10 - 2*(self.a % 10)
+        self.b = self.a + 10 - 2*(self.a % 10) # TODO: simplify
 
 
 #   For finding a 15-percent tip given a check amount.
