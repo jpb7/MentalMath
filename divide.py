@@ -4,6 +4,7 @@
 #   Mental math app
 #
 
+from math import floor, ceil
 from problem import Problem
 
 
@@ -15,6 +16,8 @@ class Divide(Problem):
         Set range, generate random numbers.
         """
         super().__init__(start, stop)
+        self.options = {'float', 'floor', 'ceil'}
+        self.mode = 'float'
     
 
     def dump(self):
@@ -29,20 +32,44 @@ class Divide(Problem):
         """
         Return quotient.
         """
+        if self.mode == 'floor':
+            return floor(self.a / self.b)
+        elif self.mode == 'ceil':
+            return ceil(self.a / self.b)
+        
         return round(self.a / self.b, 3)
+
+    
+    def setMode(self, mode):
+        if mode not in self.options:
+            raise ValueError("Not a valid mode.")
+
+        self.mode = mode
 
 
 #   Tests.
 
 print("Initialize:")
-p = Divide(1, 10)
+p = Divide(10, 100)
 p.dump()
 
 print("Change values:")
 p.shuffle()
 p.dump()
 
-print("Double digits:")
-p.setRange(10, 100)
+print("Floor division:")
+p.setMode('floor')
+p.shuffle()
 p.dump()
+
+print("Ceiling division:")
+p.setMode('ceil')
+p.shuffle()
+p.dump()
+
+print("Invalid mode:")
+try:
+    p.setMode('wall')
+except ValueError:
+    print("Detected.")
 
