@@ -30,7 +30,7 @@ class Divide(Problem):
 
     def solve(self):
         """
-        Return quotient.
+        Return quotient depending on mode.
         """
         if self.mode == 'floor':
             return floor(self.a / self.b)
@@ -41,6 +41,10 @@ class Divide(Problem):
 
     
     def setMode(self, mode):
+        """
+        Validate input and change division mode.
+        """
+        mode = mode.lower()
         if mode not in self.options:
             raise ValueError("Not a valid mode.")
 
@@ -71,5 +75,12 @@ print("Invalid mode:")
 try:
     p.setMode('wall')
 except ValueError:
-    print("Detected.")
+    print('Detected.')
+
+print("Valid mode, capitalized:")
+try:
+    p.setMode('Float')
+    print('Success.')
+except ValueError:
+    print('Failure.')
 
