@@ -57,10 +57,6 @@ print("Initialize:")
 p = Divide(10, 100)
 p.dump()
 
-print("Change values:")
-p.shuffle()
-p.dump()
-
 print("Floor division:")
 p.setMode('floor')
 p.shuffle()
