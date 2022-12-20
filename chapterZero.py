@@ -29,7 +29,7 @@ class ChapterZero(Drill):
         """
         for gen in self.generators:
             self.reset(gen)
-            self.run()
+            yield self.run()
 
 
 #   For multiplying two-digit numbers by 11.
@@ -116,6 +116,6 @@ class CalculateTip(Multiply):
 
 #   Tests.
 
-d = ChapterZero(3)
-d.runAll()
+# d = ChapterZero(3)
+# print(list(d.runAll()))
 

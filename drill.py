@@ -35,7 +35,7 @@ class Drill():
         """
         for _ in range(self.problems):
             self.generator.shuffle()
-            print(self.generator.display())
+            yield self.generator.display()
         
 
 #   Test.
