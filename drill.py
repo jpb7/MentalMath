@@ -4,11 +4,7 @@
 #   Mental math app
 #   
 
-from problem import Problem
-from add import Add
-from subtract import Subtract
-from multiply import Multiply
-
+from base import Problem
 
 #   Base class for drills, which run problem generators.
 

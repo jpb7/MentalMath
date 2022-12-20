@@ -6,8 +6,7 @@
 
 from random import randrange, choice
 from drill import Drill
-from multiply import Multiply
-from square import Square
+from problems import Multiply, Square
 
 
 #   Run all drills for this chapter with n problems per drill.
