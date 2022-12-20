@@ -9,11 +9,13 @@ from base import Problem
 #   Base class for drills, which run problem generators.
 
 class Drill():
-    def __init__(self, problemGen, numProblems):
+    def __init__(self, numProblems, problemGen = None):
         """
         Initialize problem generator and number of problems.
         """
-        self.reset(problemGen)
+        if problemGen:
+            self.reset(problemGen)
+
         self.problems = numProblems
 
     

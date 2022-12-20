@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/14/2022
+#   12/20/2022
 #   Mental math app
 #
 
@@ -16,33 +16,20 @@ class ChapterZero(Drill):
         """
         Initialize to first drill for n repetitions.
         """
-        super().__init__(MultiplyByEleven(10,100), n)
-    
-
+        super().__init__(n)
+        self.generators = [ MultiplyByEleven(10, 100),
+                            MultiplyByEleven(100, 999),
+                            SquareTwoDigitEndingInFive(),
+                            MultiplyComplementaryOnesDigit(),
+                            CalculateTip(10, 100) ]
+     
     def runAll(self):
         """
-        Generate n problems per drill.
+        Generate `n` problems per drill.
         """
-        print("\nMultiply two-digit numbers by 11:")
-        self.run()
-
-        print("\nMultiply three-digit numbers by 11:")
-        self.reset(MultiplyByEleven(100, 999))
-        self.run()
-
-        print("\nSquare two-digit numbers ending in 5:")
-        self.reset(SquareTwoDigitEndingInFive())
-        self.run()
-
-        print("\nMultiply two-digit numbers where ones digits sum to 10:")
-        self.reset(MultiplyComplementaryOnesDigit())
-        self.run()
-
-        print("\nCalculate 15-percent tip:")
-        self.reset(CalculateTip(10, 100))
-        self.run()
-
-        print()
+        for gen in self.generators:
+            self.reset(gen)
+            self.run()
 
 
 #   For multiplying two-digit numbers by 11.
