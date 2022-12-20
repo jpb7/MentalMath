@@ -26,6 +26,13 @@ class Divide(Problem):
         """
         super().dump()
         print(f"Quot: {self.solve()}")
+
+
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        return f"{self.a} \u00f7 {self.b} = {self.solve()}"
     
 
     def solve(self):
@@ -53,30 +60,34 @@ class Divide(Problem):
 
 #   Tests.
 
-print("Initialize:")
-p = Divide(10, 100)
-p.dump()
-
-print("Floor division:")
-p.setMode('floor')
-p.shuffle()
-p.dump()
-
-print("Ceiling division:")
-p.setMode('ceil')
-p.shuffle()
-p.dump()
-
-print("Invalid mode:")
-try:
-    p.setMode('wall')
-except ValueError:
-    print('Detected.')
-
-print("Valid mode, capitalized:")
-try:
-    p.setMode('Float')
-    print('Success.')
-except ValueError:
-    print('Failure.')
-
+#print("Initialize:")
+# p = Divide(10, 100)
+# p.dump()
+# 
+# print("Floor division:")
+# p.setMode('floor')
+# p.shuffle()
+# p.dump()
+# 
+# print("Ceiling division:")
+# p.setMode('ceil')
+# p.shuffle()
+# p.dump()
+# 
+# print("Invalid mode:")
+# try:
+#     p.setMode('wall')
+# except ValueError:
+#     print('Detected.')
+# 
+# print("Valid mode, capitalized:")
+# try:
+#     p.setMode('Float')
+#     print('Success.')
+# except ValueError:
+#     print('Failure.')
+# 
+# print("Display:")
+# p.shuffle()
+# print(p.display())
+# 

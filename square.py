@@ -33,6 +33,13 @@ class Square(Multiply):
         print(f"Square: {self.solve()}")
 
 
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        return f"{self.a}\u00b2 = {self.solve()}"
+
+
 #   Tests.
 
 # print("Initialize:")
@@ -47,4 +54,6 @@ class Square(Multiply):
 # p.shuffle()
 # p.dump()
 # 
-# 
+# print("Display:")
+# print(p.display())
+#

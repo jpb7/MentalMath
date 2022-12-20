@@ -25,6 +25,13 @@ class Add(Problem):
         print(f"Sum: {self.solve()}")
 
 
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        return f"{self.a} + {self.b} = {self.solve()}"
+
+
     def solve(self):
         """
         Return sum.

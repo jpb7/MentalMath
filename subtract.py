@@ -26,6 +26,13 @@ class Subtract(Problem):
         print(f"Diff: {self.solve()}")
     
 
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        return f"{self.a} - {self.b} = {self.solve()}"
+
+
     def solve(self):
         """
         Return difference (always positive by default).
@@ -52,4 +59,7 @@ class Subtract(Problem):
 # p.shuffle()
 # p.dump()
 # 
+# print("Display:")
+# p.shuffle()
+# print(p.display())
 # 

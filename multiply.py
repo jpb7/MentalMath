@@ -25,6 +25,13 @@ class Multiply(Problem):
         print(f"Prod: {self.solve()}")
     
 
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        return f"{self.a} \u00d7 {self.b} = {self.solve()}"
+
+
     def solve(self):
         """
         Return product.
@@ -50,5 +57,8 @@ class Multiply(Problem):
 # p.shuffle()
 # p.setA(11)
 # p.dump()
-# 
+#
+# print("Display:")
+# p.shuffle()
+# print(p.display())
 # 

@@ -5,6 +5,9 @@
 #   
 
 from problem import Problem
+from add import Add
+from subtract import Subtract
+from multiply import Multiply
 
 
 #   Base class for drills, which run problem generators.
@@ -32,9 +35,9 @@ class Drill():
         """
         Generate and output problems.
         """
-        for i in range(self.problems):
+        for _ in range(self.problems):
             self.generator.shuffle()
-            self.generator.dump()
+            print(self.generator.display())
         
 
 #   Test.

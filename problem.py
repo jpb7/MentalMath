@@ -25,6 +25,13 @@ class Problem():
         print("a:", self.a)
         print("b:", self.b)
 
+    
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        pass
+
 
     def solve(self):
         """
