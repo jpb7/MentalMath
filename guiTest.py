@@ -1,64 +1,98 @@
 #
 #   Jacob Bentley
-#   12/19/2022
+#   12/21/2022
 #   Mental math app
 #
 
 from chapterZero import ChapterZero
 from PyQt6.QtWidgets import *
-from PyQt6.QtCore import QCoreApplication
 
 
-#   TODO: yield problems as a tuple of two strings to avoid splitting/joining.
-#       : figure out button clicks and program flow
-#       : make a GUI class
+    #   TODO: Wait on button clicks.
+    #       : Set the window size.
+    #       : Yield problems as tuple of two strings, avoid split/join.
 
-def runExercise(drills):
-    #button.setText('Solve')
-    for drill in drills.runAll():
-        for problem in drill:
-            print(problem)
-#            problem = problem.split(' ')
-#            prob = str(f"<p style='font-size: 24px;'> {' '.join(problem[:4])} </p>")
-#            soln = str(f"<p style='font-size: 24px;'> {problem[-1]} </p>")
-#            label.setText(prob)
-#            button.clicked.connect(lambda: solve(prob, soln))  
-#            button.clicked.connect(lambda: goNext())
+    
+class Exercise(QWidget):
+    def __init__(self, drills):
+        """
+        Initialize label for displaying problems, button for clicking through.
+        """
+        super().__init__()
+        self.drills = drills
 
-def solve(problem, solution):
-    label.setText(
-        f"<p style='font-size: 24px;'> {problem} {solution} </p>"
-    )
-    button.setText('Next')
+        self.display = QLabel("Mental math test\n")
+        self.button = QPushButton('Start', self)
+        self.button.clicked.connect(self.run)
 
-def goNext():
-    button.setText('Solve')
+        layout = QVBoxLayout()
+        layout.addWidget(self.display)
+        layout.addWidget(self.button)
+
+        self.setLayout(layout)
+
+    
+    def run(self):
+        """
+        Run all problems in `drills`, pausing for button clicks.
+        """
+        for drill in self.drills.runAll():
+            for problem in drill:
+                print(problem)
+
+                prob = str(
+                    f"<p style='font-size: 24px;'> \
+                    {' '.join(problem[:4])} \
+                    </p>"
+                )
+
+                self.display.setText(prob)
+                self.button.setText('Solve')
+
+                #   wait for button click
+
+                soln = str(
+                    f"<p style='font-size: 24px;'> \
+                    {problem[-1]} \
+                    </p>"
+                )
+
+                self.display.setText(f"{prob} {soln}")
+                self.button.setText('Next')
+
+                #   wait for button click
+
+        self.button.setText('Exit')
+
+        #   wait for button click
+
+        self.close()
+    
+
+#    def solve(self):
+#        self.display.setText(f"{self.prob} {self.soln}")
+#        self.button.setText('Next')
+#
+#
+#    def next(self):
+#        self.display.setText(f"{self.prob}")
+#        self.button.setText('Solve')
+#    
+#
+#    def exit(self):
+#        self.close()
+
 
 #   Instantiate GUI elements.
-
+ 
 app = QApplication([])
-window = QWidget()
-layout = QVBoxLayout()
-
-label = QLabel("Mental math test\n")
-button = QPushButton('Start')
-
 drills = ChapterZero(3)
-
-#   Compose widgets and display window.
-
-layout.addWidget(label)
-layout.addWidget(button)
-window.setLayout(layout)
+window = Exercise(drills)
 
 window.show()
-runExercise(drills)
 
-button.clicked.connect(QCoreApplication.instance().quit)
-#button.clicked.connect(lambda: runExercise(drills))
 
 #   Launch.
-
+ 
 app.exec()
-
-# QCoreApplication.instance().quit
+ 
