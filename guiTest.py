@@ -1,11 +1,12 @@
 #
 #   Jacob Bentley
-#   12/21/2022
+#   12/23/2022
 #   Mental math app
 #
 
-from chapterZero import ChapterZero
 from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from chapterZero import ChapterZero
 
 
     #   TODO: Wait on button clicks.
@@ -31,56 +32,69 @@ class Exercise(QWidget):
 
         self.setLayout(layout)
 
+#        self.run_slot = lambda: self.run()
+#        self.solve_slot = lambda: self.solve()
+#        self.next_slot = lambda: self.next()
+#        self.exit_slot = lambda: self.exit()
+
     
     def run(self):
         """
         Run all problems in `drills`, pausing for button clicks.
         """
+        self.button.clicked.disconnect(self.run)
+        self.button.clicked.connect(self.next)
+
         for drill in self.drills.runAll():
             for problem in drill:
-                print(problem)
 
-                prob = str(
-                    f"<p style='font-size: 24px;'> \
-                    {' '.join(problem[:4])} \
-                    </p>"
-                )
+                print(problem) # for debugging
 
-                self.display.setText(prob)
-                self.button.setText('Solve')
+                self.get(problem)
 
-                #   wait for button click
+                self.button.clicked.disconnect(self.next)
+                self.button.clicked.connect(self.solve)
 
-                soln = str(
-                    f"<p style='font-size: 24px;'> \
-                    {problem[-1]} \
-                    </p>"
-                )
+                # wait for button click
 
-                self.display.setText(f"{prob} {soln}")
-                self.button.setText('Next')
+                self.button.clicked.disconnect(self.solve)
+                self.button.clicked.connect(self.next)
 
-                #   wait for button click
+                # wait for button click
 
         self.button.setText('Exit')
 
-        #   wait for button click
+        self.button.clicked.disconnect(self.next)
+        self.button.clicked.connect(self.exit)
 
-        self.close()
+        # wait for button click
     
 
-#    def solve(self):
-#        self.display.setText(f"{self.prob} {self.soln}")
-#        self.button.setText('Next')
-#
-#
-#    def next(self):
-#        self.display.setText(f"{self.prob}")
-#        self.button.setText('Solve')
-#    
-#
-#    def exit(self):
-#        self.close()
+    def get(self, problem):
+        self.prob = str(
+            f"<p style='font-size: 24px;'> \
+            {' '.join(problem[:4])} \
+            </p>"
+        )
+        self.soln = str(
+            f"<p style='font-size: 24px;'> \
+            {problem[-1]} \
+            </p>"
+        )
+
+
+    def solve(self):
+        self.display.setText(f"{self.prob} {self.soln}")
+        self.button.setText('Next')
+
+
+    def next(self):
+        self.display.setText(f"{self.prob}")
+        self.button.setText('Solve')
+
+
+    def exit(self):
+        self.close()
 
 
 #   Instantiate GUI elements.
