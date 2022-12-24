@@ -4,9 +4,11 @@
 #   Mental math app
 #
 
-from PyQt6.QtWidgets import *
-from PyQt6.QtGui import *
+import sys
+from PySide6.QtCore import QEventLoop
+from PySide6.QtWidgets import *
 from chapterZero import ChapterZero
+#from PyQt6.QtGui import *
 
 
     #   TODO: Wait on button clicks.
@@ -25,6 +27,8 @@ class Exercise(QWidget):
         self.display = QLabel("Mental math test\n")
         self.button = QPushButton('Start', self)
         self.button.clicked.connect(self.run)
+
+        self.event = QEventLoop()
 
         layout = QVBoxLayout()
         layout.addWidget(self.display)
