@@ -1,14 +1,13 @@
 #
 #   Jacob Bentley
-#   12/23/2022
+#   12/24/2022
 #   Mental math app
 #
 
-import sys
-from PySide6.QtCore import QEventLoop
-from PySide6.QtWidgets import *
 from chapterZero import ChapterZero
-#from PyQt6.QtGui import *
+from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
+                              QWidget, QApplication
 
 
     #   TODO: Wait on button clicks.
@@ -24,79 +23,77 @@ class Exercise(QWidget):
         super().__init__()
         self.drills = drills
 
-        self.display = QLabel("Mental math test\n")
+        self.label = QLabel("Mental math test\n")
         self.button = QPushButton('Start', self)
         self.button.clicked.connect(self.run)
 
-        self.event = QEventLoop()
+        self.wait = True
 
         layout = QVBoxLayout()
-        layout.addWidget(self.display)
+        layout.addWidget(self.label)
         layout.addWidget(self.button)
 
         self.setLayout(layout)
 
-#        self.run_slot = lambda: self.run()
-#        self.solve_slot = lambda: self.solve()
-#        self.next_slot = lambda: self.next()
-#        self.exit_slot = lambda: self.exit()
-
     
+    @Slot()
     def run(self):
         """
         Run all problems in `drills`, pausing for button clicks.
         """
         self.button.clicked.disconnect(self.run)
-        self.button.clicked.connect(self.next)
+        self.button.clicked.connect(self.display)
 
         for drill in self.drills.runAll():
             for problem in drill:
 
-                print(problem) # for debugging
+                print(problem)
 
                 self.get(problem)
+                self.display()
 
-                self.button.clicked.disconnect(self.next)
+                self.button.clicked.disconnect(self.display)
                 self.button.clicked.connect(self.solve)
 
                 # wait for button click
 
+                self.solve()
                 self.button.clicked.disconnect(self.solve)
-                self.button.clicked.connect(self.next)
+                self.button.clicked.connect(self.display)
 
                 # wait for button click
 
-        self.button.setText('Exit')
-
-        self.button.clicked.disconnect(self.next)
+        self.button.clicked.disconnect(self.display)
         self.button.clicked.connect(self.exit)
+        self.button.setText('Exit')
 
         # wait for button click
     
+        self.exit()
+    
 
     def get(self, problem):
-        self.prob = str(
-            f"<p style='font-size: 24px;'> \
-            {' '.join(problem[:4])} \
-            </p>"
-        )
-        self.soln = str(
-            f"<p style='font-size: 24px;'> \
-            {problem[-1]} \
-            </p>"
-        )
+        self.prob = ' '.join(problem.split(' ')[:4])
+        self.soln = problem.split(' ')[-1]
 
 
-    def solve(self):
-        self.display.setText(f"{self.prob} {self.soln}")
-        self.button.setText('Next')
-
-
-    def next(self):
-        self.display.setText(f"{self.prob}")
+    @Slot()
+    def display(self):
+        self.wait = False
+        self.label.setText(self.prob)
         self.button.setText('Solve')
+        self.wait = True
 
 
+    @Slot()
+    def solve(self):
+        self.wait = False
+        self.label.setText(f"{self.prob} {self.soln}")
+        self.button.setText('Next')
+        self.wait = True
+
+
+    @Slot()
     def exit(self):
         self.close()
 
@@ -108,9 +105,7 @@ drills = ChapterZero(3)
 window = Exercise(drills)
 
 window.show()
-
-
+ 
 #   Launch.
- 
+  
 app.exec()
- 
