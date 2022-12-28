@@ -6,6 +6,7 @@
 
 from base import Problem
 
+
 #   Base class for drills, which run problem generators.
 
 class Drill():
@@ -40,7 +41,9 @@ class Drill():
 
 #   Test.
 
-# drill = Drill(Add(10, 100), 5)
+# drill = Drill(5, Add(10, 100))
+# print(type(drill.run()))
+
 # drill.run()
 # 
 # drill = Drill(Subtract(10, 100), 5)

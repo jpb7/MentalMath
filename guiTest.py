@@ -9,11 +9,12 @@ from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
                               QWidget, QApplication
 
-
-    #   TODO: Wait on button clicks.
+    #
+    #   TODO:
+    #       : Iterate through different drills.
     #       : Set the window size.
     #       : Yield problems as tuple of two strings, avoid split/join.
-
+    #
     
 class Exercise(QWidget):
     def __init__(self, drills):
@@ -21,7 +22,6 @@ class Exercise(QWidget):
         Initialize label for displaying problems, button for clicking through.
         """
         super().__init__()
-        self.drills = drills
 
         self.label = QLabel("Mental math test\n")
         self.button = QPushButton('Start', self)
@@ -38,9 +38,11 @@ class Exercise(QWidget):
         self.prompt = True      # show problem
         self.solve = False      # show problem with solution
 
+        #   Initialize first problem of first drill.
 
-    #   TODO: use the next() method of the generators,
-    #         integrate into GUI.
+        self.drills = drills
+        self.currentDrill = next(self.drills.runAll())
+        self.currentProblem = next(self.currentDrill)
 
     
     @Slot()
@@ -49,21 +51,43 @@ class Exercise(QWidget):
         Show each problem in `self.drills`; first just the problem,
         then the problem together with its solution.
         """
-        if self.prompt:
-            self.showProblem()
+        try:
 
-        elif self.solve:
-            self.showSolution()
-        
+            if self.prompt:
+                self.showProblem()
+
+            elif self.solve:
+                self.showSolution()
+
+            self.currentProblem = next(self.currentDrill)
+
+        except StopIteration:
+
+            try:
+                self.currentDrill = next(self.drills.runAll())
+
+            except StopIteration:
+                self.close()
+            
     
     def showProblem(self):
         """
         Change label text to display a problem from `self.drills`.
         """
         self.prompt = False
-        self.label.setText("Problem.")
+        self.getProblem()
+        self.label.setText(self.problem)
         self.button.setText('Solve')
         self.solve = True
+    
+
+    def getProblem(self):
+        """
+        Split generated problem into prompt and solution.
+        Will be removed when return values of generators are changed.
+        """
+        self.problem = ' '.join(self.currentProblem.split(' ')[:4])
+        self.solution = self.currentProblem.split(' ')[-1]
     
     
     def showSolution(self):
@@ -71,18 +95,9 @@ class Exercise(QWidget):
         Change label text to display a problem and its solution.
         """
         self.solve = False
-        self.label.setText("Solution.")
-        self.button.setText("Next")
+        self.label.setText(f"{self.problem} {self.solution}")
+        self.button.setText('Next')
         self.prompt = True
-
-
-#    def get(self, problem):
-#        self.prob = ' '.join(problem.split(' ')[:4])
-#        self.soln = problem.split(' ')[-1]
-#
-#
-#    def exit(self):
-#        self.close()
 
 
 #   Instantiate GUI elements.
@@ -93,6 +108,7 @@ window = Exercise(drills)
 
 window.show()
  
+
 #   Launch.
   
 app.exec()
