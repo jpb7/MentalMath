@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/24/2022
+#   12/27/2022
 #   Mental math app
 #
 
@@ -25,9 +25,7 @@ class Exercise(QWidget):
 
         self.label = QLabel("Mental math test\n")
         self.button = QPushButton('Start', self)
-        self.button.clicked.connect(self.run)
-
-        self.wait = True
+        self.button.clicked.connect(self.runDrills)
 
         layout = QVBoxLayout()
         layout.addWidget(self.label)
@@ -35,67 +33,56 @@ class Exercise(QWidget):
 
         self.setLayout(layout)
 
+        #   Flags for controlling click behavior.
+
+        self.prompt = True      # show problem
+        self.solve = False      # show problem with solution
+
+
+    #   TODO: use the next() method of the generators,
+    #         integrate into GUI.
+
     
     @Slot()
-    def run(self):
+    def runDrills(self):
         """
-        Run all problems in `drills`, pausing for button clicks.
+        Show each problem in `self.drills`; first just the problem,
+        then the problem together with its solution.
         """
-        self.button.clicked.disconnect(self.run)
-        self.button.clicked.connect(self.display)
+        if self.prompt:
+            self.showProblem()
 
-        for drill in self.drills.runAll():
-            for problem in drill:
-
-                print(problem)
-
-                self.get(problem)
-                self.display()
-
-                self.button.clicked.disconnect(self.display)
-                self.button.clicked.connect(self.solve)
-
-                # wait for button click
-
-                self.solve()
-                self.button.clicked.disconnect(self.solve)
-                self.button.clicked.connect(self.display)
-
-                # wait for button click
-
-        self.button.clicked.disconnect(self.display)
-        self.button.clicked.connect(self.exit)
-        self.button.setText('Exit')
-
-        # wait for button click
+        elif self.solve:
+            self.showSolution()
+        
     
-        self.exit()
-    
-
-    def get(self, problem):
-        self.prob = ' '.join(problem.split(' ')[:4])
-        self.soln = problem.split(' ')[-1]
-
-
-    @Slot()
-    def display(self):
-        self.wait = False
-        self.label.setText(self.prob)
+    def showProblem(self):
+        """
+        Change label text to display a problem from `self.drills`.
+        """
+        self.prompt = False
+        self.label.setText("Problem.")
         self.button.setText('Solve')
-        self.wait = True
+        self.solve = True
+    
+    
+    def showSolution(self):
+        """
+        Change label text to display a problem and its solution.
+        """
+        self.solve = False
+        self.label.setText("Solution.")
+        self.button.setText("Next")
+        self.prompt = True
 
 
-    @Slot()
-    def solve(self):
-        self.wait = False
-        self.label.setText(f"{self.prob} {self.soln}")
-        self.button.setText('Next')
-        self.wait = True
-
-
-    @Slot()
-    def exit(self):
-        self.close()
+#    def get(self, problem):
+#        self.prob = ' '.join(problem.split(' ')[:4])
+#        self.soln = problem.split(' ')[-1]
+#
+#
+#    def exit(self):
+#        self.close()
 
 
 #   Instantiate GUI elements.
@@ -109,3 +96,4 @@ window.show()
 #   Launch.
   
 app.exec()
+
