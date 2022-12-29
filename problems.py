@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/19/2022
+#   12/28/2022
 #   Mental math app
 #
 
@@ -31,7 +31,7 @@ class Add(Problem):
         """
         Return problem as a string for graphical display.
         """
-        return f"{self.a} + {self.b} = {self.solve()}"
+        return (f"{self.a} + {self.b} =", f"{self.solve()}")
 
 
     def solve(self):
@@ -64,7 +64,7 @@ class Subtract(Problem):
         """
         Return problem as a string for graphical display.
         """
-        return f"{self.a} - {self.b} = {self.solve()}"
+        return (f"{self.a} - {self.b} =", f"{self.solve()}")
 
 
     def solve(self):
@@ -96,7 +96,7 @@ class Multiply(Problem):
         """
         Return problem as a string for graphical display.
         """
-        return f"{self.a} \u00d7 {self.b} = {self.solve()}"
+        return (f"{self.a} \u00d7 {self.b} =", f"{self.solve()}")
 
 
     def solve(self):
@@ -130,7 +130,7 @@ class Divide(Problem):
         """
         Return problem as a string for graphical display.
         """
-        return f"{self.a} \u00f7 {self.b} = {self.solve()}"
+        return (f"{self.a} \u00f7 {self.b} =", f"{self.solve()}")
     
 
     def solve(self):
@@ -185,5 +185,11 @@ class Square(Multiply):
         """
         Return problem as a string for graphical display.
         """
-        return f"{self.a}\u00b2 = {self.solve()}"
+        return (f"{self.a}\u00b2 =", f"{self.solve()}")
+
+
+#   Test.
+
+#test = Square(10, 100)
+#print(test.display())
 

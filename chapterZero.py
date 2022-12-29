@@ -6,7 +6,7 @@
 
 from random import randrange, choice
 from drill import Drill
-from problems import Problem, Multiply, Square
+from problems import Multiply, Square
 
 
 #   Run all drills for this chapter with `n` problems per drill.
@@ -38,9 +38,8 @@ class ChapterZero(Drill):
         if self.problems:
             return super().__next__()
 
-        else:
-            self.current = next(self.generators)
-            self.reset(self.current, self.n)
+        self.current = next(self.generators)
+        self.reset(self.current, self.n)
 
 
     def runAll(self):
@@ -105,7 +104,7 @@ class MultiplyComplementaryOnesDigit(Multiply):
         Randomly select a two-digit value and then find a complement.
         """
         self.a = randrange(10, 100)
-        self.b = self.a + 10 - 2*(self.a % 10) # TODO: simplify
+        self.b = self.a + 10 - 2*(self.a % 10)
 
 
 #   For finding a 15-percent tip given a check amount.

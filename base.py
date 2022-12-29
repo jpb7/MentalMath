@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/12/2022
+#   12/28/2022
 #   Mental math app
 #
 
@@ -17,6 +17,24 @@ class Problem():
         """
         self.setRange(start, stop)
 
+
+    def setRange(self, start, stop):
+        """
+        Enter new range for random values and shuffle.
+        Random values are N such that (start <= N < stop).
+        """
+        self.start = start
+        self.stop = stop
+        self.shuffle()
+
+
+    def shuffle(self):
+        """
+        Assign new random integers.
+        """
+        self.a = randrange(self.start, self.stop)
+        self.b = randrange(self.start, self.stop)
+    
 
     def dump(self):
         """
@@ -38,52 +56,6 @@ class Problem():
         Return answer to problem.
         """
         pass
-
-
-    def shuffle(self):
-        """
-        Assign new random integers.
-        """
-        self.a = randrange(self.start, self.stop)
-        self.b = randrange(self.start, self.stop)
-    
-
-    def setRange(self, start, stop):
-        """
-        Enter new range for random values and shuffle.
-        Random values are N such that (start <= N < stop).
-        """
-        self.start = start
-        self.stop = stop
-        self.shuffle()
-
-
-    def shuffleA(self):
-        """
-        Generate new random integer for `a` only.
-        """
-        self.a = randrange(self.start, self.stop)
-
-
-    def shuffleB(self):
-        """
-        Generate new random integer for `b` only.
-        """
-        self.b = randrange(self.start, self.stop)
-    
-
-    def setA(self, value):
-        """
-        Set `a` to an arbitrary value.
-        """
-        self.a = value
-
-
-    def setB(self, value):
-        """
-        Set `b` to an arbitrary value.
-        """
-        self.b = value
 
 
 #   Tests.
