@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/12/2022
+#   12/28/2022
 #   Mental math app
 #   
 
@@ -25,25 +25,15 @@ class Drill():
 
 
     #   TODO: Separate yield from iteration (see line 90 in guiTest).
-    #       : Line 90 in guiTest vs Line 65.
-    #       : Default parameters?
+    #       : Line 65 in guiTest vs Line 90.
 
-    def __next__(self, problemGenerator = None, n = None):
+    def __next__(self):
         """
         Yield one problem at a time per drill up to `n`.
         """
-        try:
-            if self.problems:
-                self.problems -= 1
-                self.generator.shuffle()
-                yield self.generator.display()
-            else:
-                self.reset(problemGenerator, n)
-        
-        #   TODO: Is it good practice to chain exceptions like this?
-            
-        except ValueError:
-            raise StopIteration("No problems left in Drill object.") 
+        self.problems -= 1
+        self.generator.shuffle()
+        yield self.generator.display()
 
     
     def reset(self, problemGenerator, n):

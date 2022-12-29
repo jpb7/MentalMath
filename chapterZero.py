@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/20/2022
+#   12/28/2022
 #   Mental math app
 #
 
@@ -9,12 +9,12 @@ from drill import Drill
 from problems import Problem, Multiply, Square
 
 
-#   Run all drills for this chapter with n problems per drill.
+#   Run all drills for this chapter with `n` problems per drill.
 
 class ChapterZero(Drill):
     def __init__(self, n):
         """
-        Initialize to first drill for n repetitions.
+        Initialize to first drill for `n` repetitions.
         """
 
         #   TODO: Avoid list comprehension-to-iterable conversion.
@@ -25,8 +25,8 @@ class ChapterZero(Drill):
                                 MultiplyComplementaryOnesDigit(),
                                 CalculateTip(10, 100)])
 
-        self.current = next(self.generators)    # TODO: Better name?
-        self.n = n                              # TODO: Better way?
+        self.current = next(self.generators)
+        self.n = n
 
         super().__init__(self.current, self.n)
 
@@ -35,18 +35,12 @@ class ChapterZero(Drill):
         """
         Yield one problem at a time per drill up to `n`.
         """
-        try:
-            if self.problems:
-                return super().__next__()   # TODO: Use next(), not magic.
-            else:
-                self.current = next(self.generators)
-                self.reset(self.current, self.n)
+        if self.problems:
+            return super().__next__()
 
-
-        except StopIteration:
+        else:
             self.current = next(self.generators)
-            self.reset(self.current, n)
-            return super().__next__()   # TODO: Use next(), not magic.
+            self.reset(self.current, self.n)
 
 
     def runAll(self):

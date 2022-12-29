@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Iterate through different drills.
+    #       : Trace next() logic, clean up; yield/next behavior not clear.
     #       : Set the window size.
     #       : Yield problems as tuple of two strings, avoid split/join.
     #
@@ -59,10 +59,11 @@ class Exercise(QWidget):
 
             if self.prompt:
                 self.showProblem()
+
             elif self.solve:
                 self.showSolution()
 
-            self.current = next(self.drills)
+            self.current = next(self.drills)    # TODO: See Line 90.
 
         except StopIteration:
             self.close()
@@ -73,13 +74,13 @@ class Exercise(QWidget):
         Change label text to display a problem from `self.drills`.
         """
         self.prompt = False
-        self.getProblem()   # TODO: Remove this.
+        self.getProblem()                   # TODO: Remove this.
         self.label.setText(self.problem)
         self.button.setText('Solve')
         self.solve = True
     
 
-    #   TODO: Do splitting and joining in `Drill` class.
+    #   TODO: Do split/join in `Drill` class or in `Problem` sub-classes.
     #       : Square problems don't split correctly with this function.
 
     def getProblem(self):
@@ -87,7 +88,8 @@ class Exercise(QWidget):
         Split generated problem into prompt and solution.
         Will be removed when return values of generators are changed.
         """
-        raw = str(next(self.current))   # TODO: Extra iteration. Need yield only.
+        raw = str(next(self.current))       # TODO: Extra iteration?
+
         self.problem = ' '.join(raw.split(' ')[:4])
         self.solution = raw.split(' ')[-1]
     
