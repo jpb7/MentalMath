@@ -6,7 +6,7 @@
 
 from random import randrange, choice
 from drill import Drill
-from problems import Multiply, Square
+from problems import Problem, Multiply, Square
 
 
 #   Run all drills for this chapter with n problems per drill.
@@ -16,16 +16,42 @@ class ChapterZero(Drill):
         """
         Initialize to first drill for n repetitions.
         """
-        super().__init__(n)
-        self.generators = [ MultiplyByEleven(10, 100),
-                            MultiplyByEleven(100, 999),
-                            SquareTwoDigitEndingInFive(),
-                            MultiplyComplementaryOnesDigit(),
-                            CalculateTip(10, 100) ]
-     
+
+        #   TODO: Avoid list comprehension-to-iterable conversion.
+
+        self.generators = iter([MultiplyByEleven(10, 100),
+                                MultiplyByEleven(100, 999),
+                                SquareTwoDigitEndingInFive(),
+                                MultiplyComplementaryOnesDigit(),
+                                CalculateTip(10, 100)])
+
+        self.current = next(self.generators)    # TODO: Better name?
+        self.n = n                              # TODO: Better way?
+
+        super().__init__(self.current, self.n)
+
+    
+    def __next__(self):
+        """
+        Yield one problem at a time per drill up to `n`.
+        """
+        try:
+            if self.problems:
+                return super().__next__()   # TODO: Use next(), not magic.
+            else:
+                self.current = next(self.generators)
+                self.reset(self.current, self.n)
+
+
+        except StopIteration:
+            self.current = next(self.generators)
+            self.reset(self.current, n)
+            return super().__next__()   # TODO: Use next(), not magic.
+
+
     def runAll(self):
         """
-        Generate `n` problems per drill.
+        Generate `n` problems per drill using a loop.
         """
         for gen in self.generators:
             self.reset(gen)

@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/27/2022
+#   12/28/2022
 #   Mental math app
 #
 
@@ -38,11 +38,15 @@ class Exercise(QWidget):
         self.prompt = True      # show problem
         self.solve = False      # show problem with solution
 
+        #   Initialize strings for problem and problem with solution.
+
+        self.problem = ""
+        self.solution = ""
+
         #   Initialize first problem of first drill.
 
         self.drills = drills
-        self.currentDrill = next(self.drills.runAll())
-        self.currentProblem = next(self.currentDrill)
+        self.current = next(self.drills)
 
     
     @Slot()
@@ -55,19 +59,13 @@ class Exercise(QWidget):
 
             if self.prompt:
                 self.showProblem()
-
             elif self.solve:
                 self.showSolution()
 
-            self.currentProblem = next(self.currentDrill)
+            self.current = next(self.drills)
 
         except StopIteration:
-
-            try:
-                self.currentDrill = next(self.drills.runAll())
-
-            except StopIteration:
-                self.close()
+            self.close()
             
     
     def showProblem(self):
@@ -75,19 +73,23 @@ class Exercise(QWidget):
         Change label text to display a problem from `self.drills`.
         """
         self.prompt = False
-        self.getProblem()
+        self.getProblem()   # TODO: Remove this.
         self.label.setText(self.problem)
         self.button.setText('Solve')
         self.solve = True
     
+
+    #   TODO: Do splitting and joining in `Drill` class.
+    #       : Square problems don't split correctly with this function.
 
     def getProblem(self):
         """
         Split generated problem into prompt and solution.
         Will be removed when return values of generators are changed.
         """
-        self.problem = ' '.join(self.currentProblem.split(' ')[:4])
-        self.solution = self.currentProblem.split(' ')[-1]
+        raw = str(next(self.current))   # TODO: Extra iteration. Need yield only.
+        self.problem = ' '.join(raw.split(' ')[:4])
+        self.solution = raw.split(' ')[-1]
     
     
     def showSolution(self):
