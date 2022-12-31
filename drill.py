@@ -4,7 +4,7 @@
 #   Mental math app
 #   
 
-from base import Problem
+from problem import Problem
 
 
 #   Base class for drills, which run problem generators.
@@ -55,6 +55,40 @@ class Drill():
             self.generator.shuffle()
             yield self.generator.display()
         
+
+#   Run all drills for a given chapter with `n` problems per drill.
+
+class Chapter(Drill):
+    def __init__(self, generators, n):
+        """
+        Initialize to first drill for `n` repetitions.
+        """
+        self.generators = generators
+        self.current = next(self.generators)
+        self.n = n
+
+        super().__init__(self.current, self.n)
+
+    
+    def __next__(self):
+        """
+        Yield one problem at a time per drill up to `n`.
+        """
+        if self.problems:
+            return super().__next__()
+
+        self.current = next(self.generators)
+        self.reset(self.current, self.n)
+
+
+    def runAll(self):
+        """
+        Generate `n` problems per drill using a loop.
+        """
+        for gen in self.generators:
+            self.reset(gen)
+            yield self.run()
+
 
 #   Test.
 

@@ -1,54 +1,28 @@
 #
 #   Jacob Bentley
-#   12/28/2022
+#   12/30/2022
 #   Mental math app
 #
 
 from random import randrange, choice
-from drill import Drill
-from problems import Multiply, Square
+from problem import Multiply, Square
+from drill import Chapter
 
 
 #   Run all drills for this chapter with `n` problems per drill.
 
-class ChapterZero(Drill):
+class ChapterZero(Chapter):
     def __init__(self, n):
         """
         Initialize to first drill for `n` repetitions.
         """
+        generators = iter((MultiplyByEleven(10, 100),
+                           MultiplyByEleven(100, 999),
+                           SquareTwoDigitEndingInFive(),
+                           MultiplyComplementaryOnesDigit(),
+                           CalculateTip(10, 100)))
 
-        #   TODO: Avoid list comprehension-to-iterable conversion.
-
-        self.generators = iter([MultiplyByEleven(10, 100),
-                                MultiplyByEleven(100, 999),
-                                SquareTwoDigitEndingInFive(),
-                                MultiplyComplementaryOnesDigit(),
-                                CalculateTip(10, 100)])
-
-        self.current = next(self.generators)
-        self.n = n
-
-        super().__init__(self.current, self.n)
-
-    
-    def __next__(self):
-        """
-        Yield one problem at a time per drill up to `n`.
-        """
-        if self.problems:
-            return super().__next__()
-
-        self.current = next(self.generators)
-        self.reset(self.current, self.n)
-
-
-    def runAll(self):
-        """
-        Generate `n` problems per drill using a loop.
-        """
-        for gen in self.generators:
-            self.reset(gen)
-            yield self.run()
+        super().__init__(generators, n)
 
 
 #   For multiplying two-digit numbers by 11.

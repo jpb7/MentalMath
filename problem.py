@@ -1,12 +1,61 @@
 #
 #   Jacob Bentley
-#   12/28/2022
+#   12/30/2022
 #   Mental math app
 #
 
 from math import floor, ceil
 from random import randrange
-from base import Problem
+
+
+#   Base class for problem generators.
+
+class Problem():
+    def __init__(self, start, stop):
+        """
+        Set range, generate random numbers.
+        Random values are N such that (start <= N < stop).
+        """
+        self.setRange(start, stop)
+
+
+    def setRange(self, start, stop):
+        """
+        Enter new range for random values and shuffle.
+        Random values are N such that (start <= N < stop).
+        """
+        self.start, self.stop = start, stop
+        self.shuffle()
+
+
+    def shuffle(self):
+        """
+        Assign new random integers.
+        """
+        self.a = randrange(self.start, self.stop)
+        self.b = randrange(self.start, self.stop)
+    
+
+    def dump(self):
+        """
+        Print fields for debugging.
+        """
+        print("a:", self.a)
+        print("b:", self.b)
+
+    
+    def display(self):
+        """
+        Return problem as a string for graphical display.
+        """
+        pass
+
+
+    def solve(self):
+        """
+        Return answer to problem.
+        """
+        pass
 
 
 #   For generating addition problems. 
