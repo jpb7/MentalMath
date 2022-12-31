@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/28/2022
+#   12/30/2022
 #   Mental math app
 #   
 
@@ -14,6 +14,8 @@ class Drill():
         """
         Initialize problem generator and number of problems.
         """
+        self.generator = None
+        self.problems = None
         self.reset(problemGenerator, n)
 
 
@@ -23,9 +25,6 @@ class Drill():
         """
         return self
 
-
-    #   TODO: Separate yield from iteration (see line 90 in guiTest).
-    #       : Line 65 in guiTest vs Line 90.
 
     def __next__(self):
         """
