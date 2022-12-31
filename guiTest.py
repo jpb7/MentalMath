@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/28/2022
+#   12/30/2022
 #   Mental math app
 #
 
@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Revisit next() logic and syntax.
+    #       : Generalize ChapterZero class to Chapter.
     #
     
 class Exercise(QWidget):
@@ -55,29 +55,18 @@ class Exercise(QWidget):
         try:
 
             if self.prompt:
+                self.getProblem()
                 self.showProblem()
 
             elif self.solve:
                 self.showSolution()
 
-            self.current = next(self.drills) # TODO: See Line 87.
+            self.current = next(self.drills)
 
         except StopIteration:
             self.close()
             
     
-    def showProblem(self):
-        """
-        Change label text to display a problem from `self.drills`.
-        """
-        self.getProblem()
-
-        self.prompt = False
-        self.label.setText(self.problem)
-        self.button.setText('Solve')
-        self.solve = True
-    
-
     def getProblem(self):
         """
         Store problem in two parts: prompt and solution.
@@ -85,6 +74,16 @@ class Exercise(QWidget):
         self.problem, self.solution = next(self.current)
     
     
+    def showProblem(self):
+        """
+        Change label text to display a problem from `self.drills`.
+        """
+        self.prompt = False
+        self.label.setText(self.problem)
+        self.button.setText('Solve')
+        self.solve = True
+    
+
     def showSolution(self):
         """
         Change label text to display a problem and its solution.
