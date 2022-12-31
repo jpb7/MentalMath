@@ -4,7 +4,7 @@
 #   Mental math app
 #
 
-from chapterZero import ChapterZero
+from chapter0 import ChapterZero
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
                               QWidget, QApplication
