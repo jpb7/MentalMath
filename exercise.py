@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/30/2022
+#   01/02/2023
 #   Mental math app
 #
 
@@ -12,7 +12,6 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
     #
     #   TODO:
     #       : Generalize GUI class.
-    #       : Fix iteration logic: not displaying very last problem.
     #
     
 class Exercise(QWidget):
@@ -34,13 +33,13 @@ class Exercise(QWidget):
 
         #   Flags for controlling click behavior.
 
-        self.prompt = True      # show problem
+        self.prompt = False     # show problem
         self.solve = False      # show problem with solution
 
         #   Initialize first problem of first drill.
 
-        self.drills = drills
-        self.current = next(self.drills)
+        self.chapter = drills
+        self.drill = next(self.chapter)
 
         #   Initialize strings.
 
@@ -56,24 +55,33 @@ class Exercise(QWidget):
         try:
 
             if self.prompt:
-                self.getProblem()
                 self.showProblem()
 
             elif self.solve:
                 self.showSolution()
-
-            self.current = next(self.drills)
+            
+            else:
+                self.getProblem()
+                self.run()
 
         except StopIteration:
             self.close()
-            
-    
+
+
     def getProblem(self):
         """
-        Store problem in two parts: prompt and solution.
+        Get the next problem in the current drill, or else iterate
+        to the next drill and get the problem there.
         """
-        self.problem, self.solution = next(self.current)
+        try:
+            self.problem, self.solution = next(self.drill)
+
+        except (TypeError, StopIteration):
+            self.drill = next(self.chapter)
+            self.getProblem()
     
+        self.prompt = self.solve = True
+
     
     def showProblem(self):
         """
@@ -82,7 +90,6 @@ class Exercise(QWidget):
         self.prompt = False
         self.label.setText(self.problem)
         self.button.setText('Solve')
-        self.solve = True
     
 
     def showSolution(self):
@@ -92,7 +99,6 @@ class Exercise(QWidget):
         self.solve = False
         self.label.setText(f"{self.problem} {self.solution}")
         self.button.setText('Next')
-        self.prompt = True
 
 
 #   Instantiate GUI elements.

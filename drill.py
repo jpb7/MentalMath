@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/30/2022
+#   01/02/2023
 #   Mental math app
 #   
 
@@ -30,9 +30,13 @@ class Drill():
         """
         Yield one problem at a time per drill up to `n`.
         """
-        self.problems -= 1
-        self.generator.shuffle()
-        yield self.generator.display()
+        if self.problems > 0:
+            self.problems -= 1
+            self.generator.shuffle()
+            yield self.generator.display()
+        
+        else:
+            raise StopIteration("No more problems in Drill object.")
 
     
     def reset(self, problemGenerator, n):
