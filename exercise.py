@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   12/30/2022
+#   01/02/2023
 #   Mental math app
 #
 
@@ -12,7 +12,6 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
     #
     #   TODO:
     #       : Generalize GUI class.
-    #       : Fix extra iterations: not displaying last problem.
     #
     
 class Exercise(QWidget):
@@ -56,37 +55,33 @@ class Exercise(QWidget):
         try:
 
             if self.prompt:
-                #self.getProblem()
                 self.showProblem()
 
             elif self.solve:
                 self.showSolution()
             
             else:
-                self.goToNext()
+                self.getProblem()
                 self.run()
 
         except StopIteration:
             self.close()
 
 
-    def goToNext(self):
-        try:
-            self.getProblem()
-
-        # TypeError should be StopIteration.
-        except (TypeError, StopIteration):
-            self.drill = next(self.chapter)
-        
-        self.prompt = self.solve = True
-
-    
     def getProblem(self):
         """
-        Store problem in two parts: prompt and solution.
+        Get the next problem in the current drill, or else iterate
+        to the next drill and get the problem there.
         """
-        self.problem, self.solution = next(self.drill)
+        try:
+            self.problem, self.solution = next(self.drill)
+
+        except (TypeError, StopIteration):
+            self.drill = next(self.chapter)
+            self.getProblem()
     
+        self.prompt = self.solve = True
+
     
     def showProblem(self):
         """
