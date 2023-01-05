@@ -39,7 +39,7 @@ class Exercise(QWidget):
         #   Initialize first problem of first drill.
 
         self.drills = drills
-        self.drill = next(self.drills)
+        self.drill = None
 
         #   Initialize strings.
 
@@ -120,7 +120,6 @@ class Exercise(QWidget):
 #   Instantiate GUI elements.
  
 app = QApplication([])
-
 drills = ChapterZero(3)
 window = Exercise("Mental math test", drills)
 
