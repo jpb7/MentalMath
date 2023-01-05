@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   01/02/2023
+#   01/04/2023
 #   Mental math app
 #   
 
@@ -10,13 +10,11 @@ from problem import Problem
 #   Base class for drills, which run problem generators.
 
 class Drill():
-    def __init__(self, problemGenerator, n):
+    def __init__(self, generator, n):
         """
         Initialize problem generator and number of problems.
         """
-        self.generator = None
-        self.problems = None
-        self.reset(problemGenerator, n)
+        self.reset(generator, n)
 
 
     def __iter__(self):
@@ -39,12 +37,12 @@ class Drill():
             raise StopIteration("No more problems in Drill object.")
 
     
-    def reset(self, problemGenerator, n):
+    def reset(self, generator, n):
         """
         Set the problem generator to a given type.
         """
-        if isinstance(problemGenerator, Problem):
-            self.generator = problemGenerator
+        if isinstance(generator, Problem):
+            self.generator = generator
             self.problems = n
 
         else:
@@ -68,10 +66,10 @@ class Chapter(Drill):
         Initialize to first drill for `n` repetitions.
         """
         self.generators = generators
-        self.current = next(self.generators)
+        self.generator = next(self.generators)
         self.n = n
 
-        super().__init__(self.current, self.n)
+        super().__init__(self.generator, self.n)
 
     
     def __next__(self):
@@ -81,16 +79,16 @@ class Chapter(Drill):
         if self.problems:
             return super().__next__()
 
-        self.current = next(self.generators)
-        self.reset(self.current, self.n)
+        self.generator = next(self.generators)
+        self.reset(self.generator, self.n)
 
 
     def runAll(self):
         """
         Generate `n` problems per drill using a loop.
         """
-        for gen in self.generators:
-            self.reset(gen)
+        for generator in self.generators:
+            self.reset(generator)
             yield self.run()
 
 

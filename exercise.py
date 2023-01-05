@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   01/02/2023
+#   01/04/2023
 #   Mental math app
 #
 
@@ -45,6 +45,11 @@ class Exercise(QWidget):
 
         self.problem = self.solution = ""
 
+        # For debugging.
+        self.total = 0
+        self.stopIter = 0
+        self.typeError = 0
+
     
     @Slot()
     def run(self):
@@ -65,7 +70,9 @@ class Exercise(QWidget):
                 self.run()
 
         except StopIteration:
-            print(self.count)
+            print("Exceptions:", self.total)
+            print("TypeError:", self.typeError)
+            print("StopIteration:", self.stopIter)
             self.close()
 
 
@@ -77,7 +84,15 @@ class Exercise(QWidget):
         try:
             self.problem, self.solution = next(self.drill)
 
-        except (TypeError, StopIteration):
+        except TypeError:
+            self.typeError += 1
+            self.total += 1
+            self.drill = next(self.drills)
+            self.getProblem()
+        
+        except StopIteration:
+            self.stopIter += 1
+            self.total += 1
             self.drill = next(self.drills)
             self.getProblem()
     
