@@ -11,9 +11,9 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Generalize GUI class.
+    #       : Fix lingering iteration problems.
     #
-    
+
 class Exercise(QWidget):
     def __init__(self, label, drills):
         """
@@ -38,8 +38,8 @@ class Exercise(QWidget):
 
         #   Initialize first problem of first drill.
 
-        self.chapter = drills
-        self.drill = next(self.chapter)
+        self.drills = drills
+        self.drill = next(self.drills)
 
         #   Initialize strings.
 
@@ -65,6 +65,7 @@ class Exercise(QWidget):
                 self.run()
 
         except StopIteration:
+            print(self.count)
             self.close()
 
 
@@ -77,7 +78,7 @@ class Exercise(QWidget):
             self.problem, self.solution = next(self.drill)
 
         except (TypeError, StopIteration):
-            self.drill = next(self.chapter)
+            self.drill = next(self.drills)
             self.getProblem()
     
         self.prompt = self.solve = True
