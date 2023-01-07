@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   01/02/2023
+#   01/07/2023
 #   Mental math app
 #
 
@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Fix lingering iteration problems.
+    #       : Start working on a Menu class.
     #
 
 class Exercise(QWidget):
@@ -36,10 +36,10 @@ class Exercise(QWidget):
         self.prompt = False     # show problem
         self.solve = False      # show problem with solution
 
-        #   Initialize first problem of first drill.
+        #   Initialize drills and declare current drill.
 
         self.drills = drills
-        self.drill = next(self.drills)
+        self.drill = None
 
         #   Initialize strings.
 
@@ -49,8 +49,9 @@ class Exercise(QWidget):
     @Slot()
     def run(self):
         """
-        Show each problem in `self.drills`; first just the problem,
-        then the problem together with its solution.
+        Show each problem in `self.drills`: on first button click,
+        just the problem; on second button click, show the problem
+        together with its solution.
         """
         try:
 
@@ -65,7 +66,6 @@ class Exercise(QWidget):
                 self.run()
 
         except StopIteration:
-            print(self.count)
             self.close()
 
 
@@ -75,9 +75,13 @@ class Exercise(QWidget):
         to the next drill and get the problem there.
         """
         try:
+
+            if not self.drill:
+                self.drill = next(self.drills)
+
             self.problem, self.solution = next(self.drill)
 
-        except (TypeError, StopIteration):
+        except StopIteration:
             self.drill = next(self.drills)
             self.getProblem()
     
@@ -105,14 +109,11 @@ class Exercise(QWidget):
 #   Instantiate GUI elements.
  
 app = QApplication([])
-
 drills = ChapterZero(3)
 window = Exercise("Mental math test", drills)
 
-window.show()
- 
-
 #   Launch.
   
+window.show()
 app.exec()
 
