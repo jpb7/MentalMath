@@ -1,6 +1,6 @@
 #
 #   Jacob Bentley
-#   01/04/2023
+#   01/07/2023
 #   Mental math app
 #   
 
@@ -14,6 +14,8 @@ class Drill():
         """
         Initialize problem generator and number of problems.
         """
+        self.generator = None
+        self.problems = None
         self.reset(generator, n)
 
 
