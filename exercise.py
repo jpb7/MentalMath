@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Fix lingering iteration problems.
+    #       : Start working on a Menu class.
     #
 
 class Exercise(QWidget):
