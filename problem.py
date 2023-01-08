@@ -113,6 +113,9 @@ class Subtract(Problem):
         """
         Return problem as a string for graphical display.
         """
+        if self.absolute and self.b > self.a:
+            return (f"{self.b} - {self.a} =", f"{self.solve()}")
+
         return (f"{self.a} - {self.b} =", f"{self.solve()}")
 
 
