@@ -9,7 +9,7 @@ from problem import Multiply, Square
 from drill import Chapter
 
 
-#   Run all drills for this chapter with `n` problems per drill.
+#   Run all drills for Chapter 0 with `n` problems per drill.
 
 class ChapterZero(Chapter):
     def __init__(self, n):
