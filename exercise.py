@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Finish ChapterOne class and test here.
+    #       : Start ChapterTwo class and test here.
     #
 
 class Exercise(QWidget):
