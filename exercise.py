@@ -4,14 +4,14 @@
 #   Mental math app
 #
 
-from chapter0 import ChapterZero
+from chapter1 import ChapterOne
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
                               QWidget, QApplication
 
     #
     #   TODO:
-    #       : Create ChapterOne class and test here.
+    #       : Finish ChapterOne class and test here.
     #
 
 class Exercise(QWidget):
@@ -109,7 +109,7 @@ class Exercise(QWidget):
 #   Instantiate GUI elements.
  
 app = QApplication([])
-drills = ChapterZero(3)
+drills = ChapterOne(3)
 window = Exercise("Mental math test", drills)
 
 #   Launch.
