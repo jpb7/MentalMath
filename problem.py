@@ -70,7 +70,7 @@ class Add(Problem):
 
     def dump(self):
         """
-        Print base fields and sum.
+        Print base fields and sum to console.
         """
         super().dump()
         print(f"Sum: {self.solve()}")
@@ -103,7 +103,7 @@ class Subtract(Problem):
 
     def dump(self):
         """
-        Print base fields and difference.
+        Print base fields and difference to console.
         """
         super().dump()
         print(f"Diff: {self.solve()}")
@@ -135,7 +135,7 @@ class Multiply(Problem):
 
     def dump(self):
         """
-        Print base fields and product.
+        Print base fields and product to console.
         """
         super().dump()
         print(f"Prod: {self.solve()}")
@@ -169,7 +169,7 @@ class Divide(Problem):
 
     def dump(self):
         """
-        Print base fields and quotient.
+        Print base fields and quotient to console.
         """
         super().dump()
         print(f"Quot: {self.solve()}")
@@ -224,7 +224,7 @@ class Square(Multiply):
 
     def dump(self):
         """
-        Print value and square it.
+        Print value and its square to console.
         """
         print("a:", self.a)
         print(f"Square: {self.solve()}")

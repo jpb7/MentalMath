@@ -11,7 +11,7 @@ from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
 
     #
     #   TODO:
-    #       : Start working on a Menu class.
+    #       : Create ChapterOne class and test here.
     #
 
 class Exercise(QWidget):
