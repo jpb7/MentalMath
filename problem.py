@@ -17,6 +17,7 @@ class Problem():
         Random values are N such that (start <= N < stop).
         """
         self.setRange(start, stop)
+        self.shuffle()
 
 
     def setRange(self, start, stop):
@@ -25,7 +26,6 @@ class Problem():
         Random values are N such that (start <= N < stop).
         """
         self.start, self.stop = start, stop
-        self.shuffle()
 
 
     def shuffle(self):
