@@ -1,10 +1,10 @@
 #
 #   Jacob Bentley
-#   01/07/2023
+#   01/10/2023
 #   Mental math app
 #
 
-from chapter1 import ChapterOne
+from chapter2 import ChapterTwo
 from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QLabel, QPushButton, QVBoxLayout, \
                               QWidget, QApplication
@@ -109,7 +109,7 @@ class Exercise(QWidget):
 #   Instantiate GUI elements.
  
 app = QApplication([])
-drills = ChapterOne(3)
+drills = ChapterTwo(3)
 window = Exercise("Mental math test", drills)
 
 #   Launch.
